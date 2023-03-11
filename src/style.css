@@ -1,3 +1,14 @@
-h1 {
-  color: reds;
+.card-body {
+  background-color: #f8fcff;
+  border-radius: 45px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.form-control {
+  background-color: #f8fcff;
+}
+
+div {
+  font-family: "Inconsolata", monospace;
+  font-family: "Roboto", sans-serif;
 }
