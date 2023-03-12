@@ -75,10 +75,16 @@ submit.addEventListener("submit", changeCity);
 function showTemp(response) {
   let temperature = Math.round(response.data.main.temp);
   let mainTemp = document.querySelector("#temperature");
+  let descriptionElement = document.querySelector("#weatherDescription");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#windSpeed");
   console.log(temperature);
   console.log(response);
   document.querySelector("#city-change").innerHTML = response.data.name;
   mainTemp.innerHTML = `${temperature}°`;
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
 }
 
 function showLocation(position) {
