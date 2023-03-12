@@ -2,13 +2,17 @@
   background-color: #f8fcff;
   border-radius: 45px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .form-control {
   background-color: #f8fcff;
 }
 
-div {
+body {
   font-family: "Inconsolata", monospace;
   font-family: "Roboto", sans-serif;
+  font-size: medium;
 }
