@@ -1,58 +1,27 @@
 /// Date
-let now = new Date();
 
-let h6 = document.querySelector("#current-date-year");
-let h7 = document.querySelector("#current-day-hour");
-
-let date = now.getDate();
-let year = now.getFullYear();
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
-
-console.log(now);
-
-h6.innerHTML = `${day} ${date} ${month} ${year}`;
-/// Time
-function formatAMPM(date) {
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? "pm" : "am";
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  var strTime = hours + ":" + minutes + " " + ampm;
-  return strTime;
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    minutes = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  return `${day} ${hours}:${minutes}`;
 }
-let time = formatAMPM(new Date());
-
-console.log(formatAMPM(new Date()));
-
-h7.innerHTML = `${time}`;
 
 /// Change city
 
@@ -78,6 +47,7 @@ function showTemp(response) {
   let descriptionElement = document.querySelector("#weatherDescription");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#windSpeed");
+  let currentDate = document.querySelector("#current-date-year");
   console.log(temperature);
   console.log(response);
   document.querySelector("#city-change").innerHTML = response.data.name;
@@ -85,6 +55,7 @@ function showTemp(response) {
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
+  currentDate.innerHTML = formatDate(response.data.dt * 1000);
 }
 
 function showLocation(position) {
