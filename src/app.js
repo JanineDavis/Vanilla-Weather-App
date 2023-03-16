@@ -48,12 +48,19 @@ function showTemp(response) {
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#windSpeed");
   let currentDate = document.querySelector("#current-date-year");
+  let iconElement = document.querySelector("#icon");
+
   console.log(temperature);
   console.log(response);
   document.querySelector("#city-change").innerHTML = response.data.name;
   mainTemp.innerHTML = `${temperature}°`;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   currentDate.innerHTML = formatDate(response.data.dt * 1000);
 }
@@ -69,6 +76,12 @@ function CurrentPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(showLocation);
 }
+/// City
+let apiKey = "8944afa6845bd7c413a687258d3211ef";
+let city = "Christchurch";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+axios.get(apiURL).then(showTemp);
 
 let currentTemp = document.querySelector("#search-form-current");
 currentTemp.addEventListener("click", CurrentPosition);
