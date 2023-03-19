@@ -23,70 +23,6 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-/// Change city
-function search(city) {
-  let apiKey = "8944afa6845bd7c413a687258d3211ef";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemp);
-}
-
-function changeCity(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#enterCity");
-  let cityInput = document.querySelector("#city-change");
-  cityInput.innerHTML = `${searchInput.value}`;
-  search(searchInput.value);
-}
-
-search("Sydney");
-displayForecast();
-
-let submit = document.querySelector("form");
-submit.addEventListener("submit", changeCity);
-
-/// Search city temp API
-
-function showTemp(response) {
-  let temperature = Math.round(response.data.main.temp);
-  let mainTemp = document.querySelector("#temperature");
-  let descriptionElement = document.querySelector("#weatherDescription");
-  let humidityElement = document.querySelector("#humidity");
-  let windElement = document.querySelector("#windSpeed");
-  let currentDate = document.querySelector("#current-date-year");
-  let iconElement = document.querySelector("#icon");
-
-  document.querySelector("#city-change").innerHTML = response.data.name;
-  displayForecast();
-  celsiusTemp = response.data.main.temp;
-  mainTemp.innerHTML = `${temperature}°`;
-  descriptionElement.innerHTML = response.data.weather[0].description;
-  humidityElement.innerHTML = response.data.main.humidity;
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
-  windElement.innerHTML = Math.round(response.data.wind.speed);
-  currentDate.innerHTML = formatDate(response.data.dt * 1000);
-}
-
-///Current location API
-
-function showLocation(position) {
-  let apiKey = "8944afa6845bd7c413a687258d3211ef";
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemp);
-}
-function CurrentPosition(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(showLocation);
-}
-
-let currentTemp = document.querySelector("#search-form-current");
-currentTemp.addEventListener("click", CurrentPosition);
-
 /// C | F conversion
 
 function showFahrenheitTemp(event) {
@@ -140,3 +76,67 @@ function displayForecast() {
     forecastElement.innerHTML = forecastHTML;
   });
 }
+/// Show temp
+
+function displayTemp(response) {
+  console.log(response.data);
+  let cityElement = document.querySelector("#city-change");
+  let mainTemp = document.querySelector("#temperature");
+  let descriptionElement = document.querySelector("#weatherDescription");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#windSpeed");
+  let currentDate = document.querySelector("#current-date-year");
+  let iconElement = document.querySelector("#icon");
+  let temperature = Math.round(response.data.main.temp);
+  document.querySelector("#city-change").innerHTML = response.data.name;
+  cityElement.innerHTML = response.data.name;
+  celsiusTemp = response.data.main.temp;
+  mainTemp.innerHTML = `${temperature}°`;
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = response.data.main.humidity;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  currentDate.innerHTML = formatDate(response.data.dt * 1000);
+}
+
+/// Change city
+function search(city) {
+  let apiKey = "8944afa6845bd7c413a687258d3211ef";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayTemp);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#enterCity");
+  let cityInput = document.querySelector("#city-change");
+  cityInput.innerHTML = `${searchInput.value}`;
+  search(searchInput.value);
+}
+
+search("Brisbane");
+
+displayForecast();
+let submit = document.querySelector("form");
+submit.addEventListener("submit", handleSubmit);
+
+///Current location API
+
+function showLocation(position) {
+  let apiKey = "8944afa6845bd7c413a687258d3211ef";
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showTemp);
+}
+function CurrentPosition(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(showLocation);
+}
+
+let currentTemp = document.querySelector("#search-form-current");
+currentTemp.addEventListener("click", CurrentPosition);
