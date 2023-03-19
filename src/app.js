@@ -24,17 +24,21 @@ function formatDate(timestamp) {
 }
 
 /// Change city
+function search(city) {
+  let apiKey = "8944afa6845bd7c413a687258d3211ef";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showTemp);
+}
 
 function changeCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#enterCity");
   let cityInput = document.querySelector("#city-change");
   cityInput.innerHTML = `${searchInput.value}`;
-  let city = searchInput.value;
-  let apiKey = "8944afa6845bd7c413a687258d3211ef";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemp);
+  search(searchInput.value);
 }
+
+search("Sydney");
 
 let submit = document.querySelector("form");
 submit.addEventListener("submit", changeCity);
@@ -49,9 +53,6 @@ function showTemp(response) {
   let windElement = document.querySelector("#windSpeed");
   let currentDate = document.querySelector("#current-date-year");
   let iconElement = document.querySelector("#icon");
-
-  console.log(temperature);
-  console.log(response);
   document.querySelector("#city-change").innerHTML = response.data.name;
   mainTemp.innerHTML = `${temperature}°`;
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -65,6 +66,8 @@ function showTemp(response) {
   currentDate.innerHTML = formatDate(response.data.dt * 1000);
 }
 
+///Current location API
+
 function showLocation(position) {
   let apiKey = "8944afa6845bd7c413a687258d3211ef";
   let latitude = position.coords.latitude;
@@ -76,12 +79,6 @@ function CurrentPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(showLocation);
 }
-/// City
-let apiKey = "8944afa6845bd7c413a687258d3211ef";
-let city = "Christchurch";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-axios.get(apiURL).then(showTemp);
 
 let currentTemp = document.querySelector("#search-form-current");
 currentTemp.addEventListener("click", CurrentPosition);
