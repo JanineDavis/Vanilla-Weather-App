@@ -60,57 +60,45 @@
                   <div class="current">
                     <ul class="tempList">
                       <li>
-                        <h1 id="temperature">
-                          28°</h1>
-                          <span class="units"><a href="#" id="celsius-link" class="active">C° </a><a href="#" id="fahrenheit-link">| F°</a></span>
-                          <img src="http://openweathermap.org/img/wn/04d@2x.png" alt="Clear" class="float-right" id="icon"></img>
-                        </h1>
+                        <h1 id="temperature">28°</h1>
+                        <span class="units float-right"
+                          ><a href="#" id="celsius-link" class="active">C° </a
+                          ><a href="#" id="fahrenheit-link">| F°</a></span
+                        >
+                        <img
+                          src="http://openweathermap.org/img/wn/04d@2x.png"
+                          alt="Clear"
+                          class="float-right"
+                          id="icon"
+                        />
                       </li>
                       <li id="weatherDescription">Clear</li>
                       <li>Humidity <span id="humidity"></span>%</li>
                       <li>Wind Speed: <span id="windSpeed"></span></li>
-                      
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="container text-center">
+            <div class="weather-forecast">
               <div class="row">
                 <div class="col-2">
-                  Tuesday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-cloud-showers-heavy"></i>
+                  <div class="weather-forecast-date">Tuesday</div>
+                  <img
+                    src="http://openweathermap.org/img/wn/04d@2x.png"
+                    alt=""
+                    width="42"
+                  />
+                  <div class="weather-forecast-temperatures">
+                    <span class="weather-forecast-temp-max">18°</span>
+                    <span class="weather-forecast-temp-min">12°</span>
+                  </div>
                 </div>
-                <div class="col-2">
-                  Wednesday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-sun"></i>
-                </div>
-                <div class="col-2">
-                  Thursday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-cloud-showers-heavy"></i>
-                </div>
-                <div class="col-2">
-                  Friday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-cloud-sun-rain"></i>
-                </div>
-                <div class="col-2">
-                  Saturday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-cloud-sun-rain"></i>
-                </div>
-                <div class="col-2">
-                  Sunday <br />
-                  22/32 <br />
-                  <i class="fa-solid fa-cloud-sun-rain"></i>
-                </div>
+                <br />
+                <p class="h6 small">
+                  Weather last updated: <span id="current-date-year"></span>
+                </p>
               </div>
-              <br />
-              <p class="h6 small" >Weather last updated: <span id="current-date-year"></span></p>
-             
             </div>
           </div>
         </div>
