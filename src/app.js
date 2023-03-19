@@ -43,7 +43,7 @@ search("Sydney");
 let submit = document.querySelector("form");
 submit.addEventListener("submit", changeCity);
 
-/// current city temp API
+/// Search city temp API
 
 function showTemp(response) {
   let temperature = Math.round(response.data.main.temp);
@@ -53,7 +53,10 @@ function showTemp(response) {
   let windElement = document.querySelector("#windSpeed");
   let currentDate = document.querySelector("#current-date-year");
   let iconElement = document.querySelector("#icon");
+
   document.querySelector("#city-change").innerHTML = response.data.name;
+
+  celsiusTemp = response.data.main.temp;
   mainTemp.innerHTML = `${temperature}°`;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -82,3 +85,29 @@ function CurrentPosition(event) {
 
 let currentTemp = document.querySelector("#search-form-current");
 currentTemp.addEventListener("click", CurrentPosition);
+
+/// C | F conversion
+
+function showFahrenheitTemp(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let fahreinheitTemp = (celsiusTemp * 9) / 5 + 32;
+  celsiusLink.classList.remove("active");
+  fahreinheitLink.classList.add("active");
+  temperatureElement.innerHTML = Math.round(fahreinheitTemp);
+}
+function showCelsiusTemp(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahreinheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
+
+let fahreinheitLink = document.querySelector("#fahrenheit-link");
+fahreinheitLink.addEventListener("click", showFahrenheitTemp);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsiusTemp);
+
+let celsiusTemp = null;

@@ -30,3 +30,9 @@ body {
 li {
   text-transform: capitalize;
 }
+
+.weather-temperature .active {
+  color: rgba(14, 8, 8, 0.942);
+  text-decoration: none;
+  cursor: default;
+}
