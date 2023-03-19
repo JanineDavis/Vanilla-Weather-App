@@ -51,7 +51,8 @@ let celsiusTemp = null;
 
 ///Display forecast
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Thursday", "Friday", "Saturday"];
@@ -78,6 +79,13 @@ function displayForecast() {
 }
 /// Show temp
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "8944afa6845bd7c413a687258d3211ef";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemp(response) {
   console.log(response.data);
   let cityElement = document.querySelector("#city-change");
@@ -101,6 +109,8 @@ function displayTemp(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   currentDate.innerHTML = formatDate(response.data.dt * 1000);
+
+  getForecast(response.data.coord);
 }
 
 /// Change city
@@ -118,9 +128,8 @@ function handleSubmit(event) {
   search(searchInput.value);
 }
 
-search("Brisbane");
+search("Milan");
 
-displayForecast();
 let submit = document.querySelector("form");
 submit.addEventListener("submit", handleSubmit);
 
