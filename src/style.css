@@ -54,3 +54,7 @@ li {
 .weather-forecast-temp-min {
   opacity: 0.5;
 }
+
+.small {
+  padding-top: 30px;
+}
