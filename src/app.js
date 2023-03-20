@@ -30,31 +30,6 @@ function formatDay(timestamp) {
 
   return days[day];
 }
-/// C | F conversion
-
-function showFahrenheitTemp(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  let fahreinheitTemp = (celsiusTemp * 9) / 5 + 32;
-  celsiusLink.classList.remove("active");
-  fahreinheitLink.classList.add("active");
-  temperatureElement.innerHTML = Math.round(fahreinheitTemp);
-}
-function showCelsiusTemp(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahreinheitLink.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemp);
-}
-
-let fahreinheitLink = document.querySelector("#fahrenheit-link");
-fahreinheitLink.addEventListener("click", showFahrenheitTemp);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", showCelsiusTemp);
-
-let celsiusTemp = null;
 
 ///Display forecast
 
