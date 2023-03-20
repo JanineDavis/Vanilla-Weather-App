@@ -127,20 +127,3 @@ search("Melbourne");
 
 let submit = document.querySelector("form");
 submit.addEventListener("submit", handleSubmit);
-
-///Current location API
-
-function showLocation(position) {
-  let apiKey = "8944afa6845bd7c413a687258d3211ef";
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showTemp);
-}
-function CurrentPosition(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(showLocation);
-}
-
-let currentTemp = document.querySelector("#search-form-current");
-currentTemp.addEventListener("click", CurrentPosition);
